@@ -1,13 +1,23 @@
 import os
 import pygame
-from math import sin, radians, degrees, copysign
+from math import sin, radians, degrees, copysign, cos, pi
+import random
 from pygame.math import Vector2
 
-speed = [2, 2]
-speed2 = [-2, 2]
-speed3 = [3, -2]
-player_speed = [0, 0]
+random.seed()
 
+def generate_position(width, height):
+    return (random.random() * width, random.random() * height)
+
+def generate_velocity(speed):
+    angle = (2 * pi) * random.uniform(-1, 1)
+    return [speed * cos(angle), speed * sin(angle)]
+
+speed = generate_velocity(3)
+speed2 = generate_velocity(3)
+speed3 = generate_velocity(3)
+
+player_speed = [0, 0]
 
 def update_velocity(agentrect, speed, width, height):
     if agentrect.left < 0 or agentrect.right > width:
@@ -71,9 +81,12 @@ class Game:
         current_dir = os.path.dirname(os.path.abspath(__file__))
         image_path = os.path.join(current_dir, "agent.png")
         agent_image = pygame.image.load(image_path)
-        agentrect = agent_image.get_rect(center=(self.width / 4, self.height / 4))
-        agentrect2 = agent_image.get_rect(center=(self.width / 2, self.height / 2))
-        agentrect3 = agent_image.get_rect(center=(self.width / 3, self.height / 3))
+        # agentrect = agent_image.get_rect(center=(self.width / 4, self.height / 4))
+        # agentrect2 = agent_image.get_rect(center=(self.width / 2, self.height / 2))
+        # agentrect3 = agent_image.get_rect(center=(self.width / 3, self.height / 3))
+        agentrect = agent_image.get_rect(center=generate_position(self.width, self.height))
+        agentrect2 = agent_image.get_rect(center=generate_position(self.width, self.height))
+        agentrect3 = agent_image.get_rect(center=generate_position(self.width, self.height))
 
         player_image_path = os.path.join(current_dir, "player.png")
         player_image = pygame.image.load(player_image_path)
