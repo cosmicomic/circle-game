@@ -90,8 +90,7 @@ class Game:
         textRect = text.get_rect()
 
         while not self.exit:
-            dt = self.clock.get_time() / 1000
-
+            
             # Event queue
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -103,13 +102,13 @@ class Game:
             if goal_rect.contains(player_rect):
                 self.exit = True
 
-            # User input
-            pressed = pygame.key.get_pressed()
-
             self.update_agents()
 
-            # update player position and velocity
+            # Update player position and velocity
             player_rect = player_rect.move(player_velocity)
+
+            # User input
+            pressed = pygame.key.get_pressed()
 
             if pressed[pygame.K_UP] and not (player_rect.top < 0):
                 player_velocity[1] = -player_speed
