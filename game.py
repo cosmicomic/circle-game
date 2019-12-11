@@ -116,8 +116,8 @@ class Game:
             if self.collisions >= self.max_collisions:
                 self.exit = True
 
-            # if goal_rect.contains(player_rect):
-            #     self.exit = True
+            if goal_rect.contains(player_rect):
+                self.exit = True
 
 
             self.update_agents()
@@ -140,7 +140,7 @@ class Game:
             # Update user position
             player_position[0] += int(player_velocity.x * dt)
             player_position[1] += int(player_velocity.y * dt)
-            player_rect.move(int(player_velocity.x * dt), int(player_velocity.y * dt))
+            player_rect = player_rect.move(int(player_velocity.x * dt), int(player_velocity.y * dt))
             print(player_rect.x, player_rect.y)
 
             # check for collisions
